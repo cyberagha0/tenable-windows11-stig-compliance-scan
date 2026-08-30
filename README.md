@@ -16,7 +16,7 @@
 
 ## 📌 Project Overview
 
-This project demonstrates a **credentialed vulnerability and compliance assessment of a Windows 11 Pro virtual machine hosted in Microsoft Azure** using **Tenable Vulnerability Management**.
+This project demonstrates a credentialed vulnerability and compliance assessment of a Windows 11 Pro virtual machine hosted in Microsoft Azure using **Tenable Vulnerability Management**.
 
 A disposable Windows 11 VM was intentionally configured with insecure settings to simulate a poorly hardened endpoint. I then created a Tenable **Advanced Network Scan**, authenticated to the Windows host, and evaluated the system against the **DISA Microsoft Windows 11 STIG v2r8** security benchmark.
 
