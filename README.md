@@ -32,13 +32,15 @@ The project demonstrates two complementary security-assessment activities:
 ## 🎯 Objectives
 
 - Deploy a Windows 11 VM in Microsoft Azure
-- Introduce controlled security misconfigurations
-- Configure Azure networking for vulnerability scanning
+- Introduce controlled security misconfigurations for assessment
+- Configure Azure networking to support vulnerability scanning
 - Create a reusable Tenable Advanced Network Scan template
 - Perform a credentialed Windows vulnerability assessment
-- Apply the DISA Microsoft Windows 11 STIG v2r8 audit
-- Identify failed security controls and software vulnerabilities
-- Analyze security impact and remediation requirements
+- Assess the system against the DISA Microsoft Windows 11 STIG v2r8 benchmark
+- Identify software vulnerabilities and failed STIG security controls
+- Analyze the security impact of identified findings
+- Remediate selected vulnerabilities and STIG compliance failures
+- Re-scan the system to validate remediation and measure security improvements
 
 ---
 
