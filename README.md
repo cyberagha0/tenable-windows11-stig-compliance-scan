@@ -414,7 +414,7 @@ Add the exported Tenable audit PDF to:
 
 Then link it here:
 
-[View Full Vulnerability Scan Report](reports/ Windows_11_Vulnerability_Scan_Report.pdf)
+[View Full Vulnerability Scan Report](reports/Windows_11_Vulnerability_Scan_Report.pdf)
 
 </details>
 
