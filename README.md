@@ -275,17 +275,6 @@ Then link it here:
 
 </details>
 
-<details>
-<summary><b>📸 View STIG Audit Summary</b></summary>
-
-<br>
-
-![STIG Audit Summary](screenshots/STIG_Audit_Summary.PNG)
-
-**Figure 9 — DISA Windows 11 STIG audit results showing compliance status.**
-
-</details>
-
 ---
 
 # 🚨 Selected STIG Findings
@@ -413,6 +402,21 @@ The installed Microsoft Teams version was identified as affected by a remote cod
 **Plugin ID:** `264898`
 
 An installed Microsoft Teams version was identified as affected by an elevation-of-privilege vulnerability.
+
+<details>
+<summary><b>📄 View Full Vulnerability Scan Report</b></summary>
+
+<br>
+
+Add the exported Tenable audit PDF to:
+
+`Windows_11_Vulnerability_Scan_Report.pdf'
+
+Then link it here:
+
+[View Full Vulnerability Scan Report](reports/ Windows_11_Vulnerability_Scan_Report.pdf)
+
+</details>
 
 ---
 
