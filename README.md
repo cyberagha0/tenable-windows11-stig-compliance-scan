@@ -549,7 +549,7 @@ tenable-windows11-stig-compliance-scan/
 This project was conducted exclusively in an authorized cybersecurity lab environment. The vulnerable configurations shown in this repository were intentionally created for educational and security-testing purposes.
 
 
-
+----
 
 
 # 🔧 Remediation & Validation
