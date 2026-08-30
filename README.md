@@ -1,18 +1,29 @@
+<div align="center">
+
 # 🛡️ Windows 11 DISA STIG Compliance Assessment
 
-![Platform](https://img.shields.io/badge/Platform-Microsoft%20Azure-0078D4?logo=microsoftazure)
-![OS](https://img.shields.io/badge/OS-Windows%2011-0078D4?logo=windows11)
-![Scanner](https://img.shields.io/badge/Scanner-Tenable-00A5B5)
-![Framework](https://img.shields.io/badge/Compliance-DISA%20STIG-4B5563)
-![Scan](https://img.shields.io/badge/Scan-Credentialed-success)
+### Vulnerability & Security Configuration Assessment Using Tenable Vulnerability Management
+
+![Azure](https://img.shields.io/badge/Cloud-Microsoft%20Azure-0078D4?logo=microsoftazure&logoColor=white)
+![Windows](https://img.shields.io/badge/OS-Windows%2011-0078D4?logo=windows11&logoColor=white)
+![Tenable](https://img.shields.io/badge/Scanner-Tenable%20VM-00A5B5)
+![DISA STIG](https://img.shields.io/badge/Compliance-DISA%20STIG-4B5563)
+![Credentialed Scan](https://img.shields.io/badge/Scan-Credentialed-success)
+
+</div>
+
+---
 
 ## 📌 Project Overview
 
-This project demonstrates a vulnerability and compliance assessment of a **Windows 11 Pro virtual machine hosted in Microsoft Azure** using **Tenable Vulnerability Management**.
+This project demonstrates a **credentialed vulnerability and compliance assessment of a Windows 11 Pro virtual machine hosted in Microsoft Azure** using **Tenable Vulnerability Management**.
 
-I intentionally introduced security misconfigurations into an isolated lab VM, configured a credentialed **Advanced Network Scan**, and assessed the system using the **DISA Microsoft Windows 11 STIG v2r8** compliance benchmark.
+A disposable Windows 11 VM was intentionally configured with insecure settings to simulate a poorly hardened endpoint. I then created a Tenable **Advanced Network Scan**, authenticated to the Windows host, and evaluated the system against the **DISA Microsoft Windows 11 STIG v2r8** security benchmark.
 
-The scan identified **126 findings**, including **3 High**, **1 Low**, and **122 Informational** findings.
+The project demonstrates two complementary security-assessment activities:
+
+- **Vulnerability Assessment** — identifying software vulnerabilities, missing patches, and vulnerable applications.
+- **STIG Compliance Assessment** — evaluating Windows configuration against DISA security-hardening requirements.
 
 > ⚠️ **Lab Disclaimer:** All insecure configurations were intentionally created in an isolated, disposable Azure environment for authorized cybersecurity training.
 
@@ -22,55 +33,58 @@ The scan identified **126 findings**, including **3 High**, **1 Low**, and **122
 
 - Deploy a Windows 11 VM in Microsoft Azure
 - Introduce controlled security misconfigurations
-- Configure network connectivity for vulnerability scanning
-- Build a Tenable Advanced Network Scan template
+- Configure Azure networking for vulnerability scanning
+- Create a reusable Tenable Advanced Network Scan template
 - Perform a credentialed Windows vulnerability assessment
-- Apply the DISA Windows 11 STIG v2r8 compliance audit
-- Analyze vulnerability and configuration findings
-- Develop remediation recommendations
+- Apply the DISA Microsoft Windows 11 STIG v2r8 audit
+- Identify failed security controls and software vulnerabilities
+- Analyze security impact and remediation requirements
 
 ---
 
 ## 🧰 Technologies & Skills
 
-| Technology | Usage |
+| Technology / Skill | Purpose |
 |---|---|
-| Microsoft Azure | Hosted the Windows 11 target VM |
-| Windows 11 Pro | Target operating system |
+| Microsoft Azure | Hosted the Windows 11 target system |
+| Windows 11 Pro | Assessment target |
 | Tenable Vulnerability Management | Vulnerability and compliance scanning |
-| DISA STIG | Windows security configuration benchmark |
+| DISA Windows 11 STIG v2r8 | Security configuration benchmark |
 | Azure NSG | Network access configuration |
 | SMB / WMI | Credentialed Windows enumeration |
-| Windows Defender Firewall | Host-based firewall testing |
+| Windows Registry | Configuration assessment |
+| Windows Defender Firewall | Host firewall assessment |
+| Vulnerability Management | Discovery, analysis, and remediation |
+| Compliance Auditing | Security baseline validation |
 
 ---
 
-# 🔬 Lab Implementation
+# 🧪 Lab Environment
 
-## 1. Azure Windows 11 VM
+## Azure Windows 11 VM
 
-A Windows 11 Pro virtual machine was deployed in Microsoft Azure as the target of the vulnerability and compliance assessment.
+A Windows 11 Pro virtual machine was deployed in Microsoft Azure as the assessment target.
 
 <details>
-<summary><b>📸 View Azure VM Screenshot</b></summary>
+<summary><b>📸 View Azure VM</b></summary>
 
 <br>
 
-![Windows 11 Azure VM](screenshots/01-azure-vm-overview.png)
+![Azure Windows 11 VM](screenshots/01-azure-vm-overview.png)
 
-**Figure 1:** Windows 11 Pro virtual machine deployed in Microsoft Azure.
+**Figure 1 — Windows 11 Pro VM deployed in Microsoft Azure.**
 
 </details>
 
 ---
 
-## 2. Intentional Security Misconfigurations
+# ⚠️ Intentional Security Misconfigurations
 
-Several security controls were intentionally weakened to create a vulnerable test environment.
+To provide detectable security weaknesses for the assessment, several controls were intentionally weakened.
 
-### 🔥 Windows Firewall Disabled
+## Windows Firewall Disabled
 
-Windows Defender Firewall was disabled across the Domain, Private, and Public profiles.
+Windows Defender Firewall was disabled across the Domain, Private, and Public network profiles.
 
 <details>
 <summary><b>📸 View Firewall Configuration</b></summary>
@@ -79,118 +93,136 @@ Windows Defender Firewall was disabled across the Domain, Private, and Public pr
 
 ![Windows Firewall Disabled](screenshots/02-firewall-disabled.png)
 
-**Figure 2:** Windows Defender Firewall disabled across all network profiles.
+**Figure 2 — Windows Defender Firewall disabled across all profiles.**
 
 </details>
 
-### 👤 Insecure Privileged Accounts
+---
 
-The built-in **Administrator** and **Guest** accounts were enabled, and the Guest account was placed in the local **Administrators** group.
+## Privileged Local Accounts
+
+The built-in Administrator and Guest accounts were enabled, and the Guest account was added to the local Administrators group.
 
 <details>
-<summary><b>📸 View Local Administrator Configuration</b></summary>
+<summary><b>📸 View Local Administrator Accounts</b></summary>
 
 <br>
 
 ![Local Administrators](screenshots/03-insecure-local-accounts.png)
 
-**Figure 3:** Intentionally insecure local account configuration.
+**Figure 3 — Intentionally insecure local account configuration.**
 
 </details>
-
-### 🌐 Permissive Azure NSG
-
-A temporary Azure Network Security Group rule allowed inbound traffic from any source to any destination and port.
-
-<details>
-<summary><b>📸 View NSG Configuration</b></summary>
-
-<br>
-
-![NSG Allow Inbound](screenshots/04-nsg-allow-all.png)
-
-**Figure 4:** Temporary permissive inbound NSG rule used for the isolated lab.
-
-</details>
-
-> **Security Impact:** These configurations increase the attack surface and would not be appropriate for a production environment.
 
 ---
 
-## 3. Network Connectivity Validation
+## Permissive Azure Network Security Group
 
-Connectivity to the Azure VM was verified before launching the vulnerability assessment.
+A temporary Azure NSG rule was configured to permit inbound traffic from any source, protocol, and port.
+
+<details>
+<summary><b>📸 View Azure NSG Rule</b></summary>
+
+<br>
+
+![Azure NSG](screenshots/04-nsg-allow-all.png)
+
+**Figure 4 — Temporary permissive NSG rule used in the isolated lab.**
+
+</details>
+
+> These configurations significantly increase attack surface and would not be appropriate for a production environment.
+
+---
+
+# 🌐 Connectivity Validation
+
+Connectivity between the workstation and Azure VM was verified before scanning.
 
 <details>
 <summary><b>📸 View Connectivity Test</b></summary>
 
 <br>
 
-![Ping Test](screenshots/05-connectivity-test.png)
+![Connectivity Test](screenshots/05-connectivity-test.png)
 
-**Figure 5:** Successful ICMP connectivity test to the Windows 11 VM.
+**Figure 5 — Successful connectivity test to the Azure Windows 11 VM.**
 
 </details>
 
 ---
 
-# 🔎 Tenable Vulnerability Assessment
-
-## 4. Advanced Network Scan Configuration
+# 🔎 Tenable Scan Configuration
 
 A reusable **Advanced Network Scan** template was created in Tenable Vulnerability Management.
 
-The scan was configured for credentialed Windows assessment, allowing Tenable to perform deeper host enumeration using technologies such as:
+The assessment used Windows credentials so Tenable could perform deeper inspection of the operating system rather than relying only on externally visible network services.
+
+Authenticated enumeration included access to:
 
 - SMB
 - WMI
 - Windows Registry
-- Administrative shares
+- Local users and groups
+- Installed software
 - Windows services
+- Password policy
+- Patch information
+- System configuration
 
 <details>
-<summary><b>📸 View Tenable Scan Template</b></summary>
+<summary><b>📸 View Advanced Network Scan Template</b></summary>
 
 <br>
 
-![Tenable Scan Template](screenshots/Tenable_STIG_Template_config.PNG)
+![Tenable Template](screenshots/Tenable_STIG_Template_config.PNG)
 
-**Figure 6:** Tenable Advanced Network Scan template used for the Windows 11 assessment.
+**Figure 6 — Advanced Network Scan template configured for the Windows 11 assessment.**
 
 </details>
 
 ---
 
-## 5. DISA Windows 11 STIG Audit
+# 🛡️ DISA STIG Configuration
 
-The **DISA Microsoft Windows 11 STIG v2r8** compliance audit was added to the scan.
+The **DISA Microsoft Windows 11 STIG v2r8** audit was added to the Tenable scan.
 
-The benchmark evaluates security controls including:
+The benchmark evaluates security controls covering areas such as:
 
-- Password history
-- Password age
-- Minimum password length
-- Windows event logging
-- Security policy
-- Logon configuration
-- Registry-based security settings
+- Account and password policy
+- Authentication
+- Audit logging
+- Windows security options
+- User rights
+- BitLocker
+- Windows Defender
+- SMB
+- Remote Desktop
+- PowerShell
+- WinRM
+- Credential Guard
+- Network security
+- System services
+- Registry configuration
 
 <details>
-<summary><b>📸 View DISA STIG Configuration</b></summary>
+<summary><b>📸 View DISA STIG Audit Configuration</b></summary>
 
 <br>
 
-![DISA STIG Parameters](screenshots/DISA_STIG_Win11_parameters.PNG)
+![DISA STIG Configuration](screenshots/DISA_STIG_Win11_parameters.PNG)
 
-**Figure 7:** DISA Microsoft Windows 11 STIG v2r8 audit configuration in Tenable.
+**Figure 7 — DISA Microsoft Windows 11 STIG v2r8 audit configured in Tenable.**
 
 </details>
 
 ---
 
-# 📊 Scan Results
+# 📊 Assessment Results
 
-The credentialed scan completed successfully against the Windows 11 VM.
+The assessment produced two different types of results:
+
+## Vulnerability Scan
 
 | Severity | Findings |
 |:---|---:|
@@ -202,38 +234,173 @@ The credentialed scan completed successfully against the Windows 11 VM.
 | **Total** | **126** |
 
 <details>
-<summary><b>📸 View Completed Scan</b></summary>
+<summary><b>📸 View Completed Vulnerability Scan</b></summary>
 
 <br>
 
-![Completed Tenable Scan](screenshots/STIG_Scan_Completed.PNG)
+![Completed Scan](screenshots/STIG_Scan_Completed.PNG)
 
-**Figure 8:** Completed Windows 11 DISA STIG assessment in Tenable Vulnerability Management.
+**Figure 8 — Completed Tenable vulnerability assessment.**
 
 </details>
 
 ---
 
-# 🚨 Key Findings
+## 🛡️ DISA STIG Compliance Results
 
-## High — WinVerifyTrust Signature Validation
+The credentialed compliance audit evaluated the system against the **DISA Microsoft Windows 11 STIG v2r8** benchmark.
 
-**Plugin ID:** `166555`  
-**Finding:** WinVerifyTrust Signature Validation CVE-2013-3900 Mitigation (`EnableCertPaddingCheck`)
+| Audit Result | Controls |
+|:---|---:|
+| ❌ Failed | **144** |
+| ✅ Passed | **101** |
+| ⏭️ Skipped | **0** |
+| ⚠️ Error / Info / Warning | **11** |
+| **Total Evaluated** | **256** |
 
-Tenable identified that the recommended Windows mitigation associated with CVE-2013-3900 was not enabled.
+The high number of failed controls was expected because the VM had not been hardened to the DISA baseline and several insecure settings were intentionally introduced for the exercise.
+
+<details>
+<summary><b>📄 View Full DISA STIG Audit Report</b></summary>
+
+<br>
+
+Add the exported Tenable audit PDF to:
+
+`reports/Windows_11_DISA_STIG_Audit_Report.pdf`
+
+Then link it here:
+
+[View Full DISA Windows 11 STIG Audit Report](reports/Windows_11_DISA_STIG_Audit_Report.pdf)
+
+</details>
+
+<details>
+<summary><b>📸 View STIG Audit Summary</b></summary>
+
+<br>
+
+![STIG Audit Summary](screenshots/STIG_Audit_Summary.PNG)
+
+**Figure 9 — DISA Windows 11 STIG audit results showing compliance status.**
+
+</details>
 
 ---
 
-## High — Microsoft Outlook Security Update
+# 🚨 Selected STIG Findings
+
+Rather than reproducing all 144 failed controls, several findings were selected to demonstrate the types of security weaknesses identified during the audit.
+
+## ❌ WN11-00-000135 — Host-Based Firewall
+
+**Requirement:**  
+A host-based firewall must be installed and enabled.
+
+**Result:** `FAILED`
+
+Tenable determined that the required firewall configuration was not enabled for the Windows firewall profiles.
+
+**Security Impact:**  
+Disabling the host firewall removes an important layer of protection responsible for controlling inbound and outbound network connections.
+
+**Remediation:**  
+Enable Windows Defender Firewall and configure appropriate rules for all required profiles.
+
+---
+
+## ❌ WN11-00-000090 — Password Expiration
+
+**Requirement:**  
+Accounts must be configured to require password expiration.
+
+**Result:** `FAILED`
+
+The compliance assessment identified active accounts configured in a manner that did not satisfy the STIG password-expiration requirement.
+
+**Security Impact:**  
+Passwords that never expire can remain usable for long periods if credentials are compromised.
+
+**Remediation:**  
+Ensure active accounts are configured according to the organization's password-expiration policy and the applicable STIG requirement.
+
+---
+
+## ❌ WN11-SO-000010 — Guest Account
+
+**Requirement:**  
+The built-in Guest account must be disabled.
+
+**Result:** `FAILED`
+
+The Guest account had intentionally been enabled as part of the vulnerable lab configuration.
+
+**Security Impact:**  
+Unnecessary enabled accounts increase the attack surface and may provide additional opportunities for unauthorized access.
+
+**Remediation:**  
+Disable the built-in Guest account.
+
+---
+
+## ❌ WN11-AC-000005 — Account Lockout Duration
+
+**Requirement:**  
+Account lockout duration must be configured to **15 minutes or greater**.
+
+**Result:** `FAILED`
+
+The assessed system was configured with a **10-minute** account lockout duration.
+
+**Security Impact:**  
+Insufficient lockout controls reduce resistance to repeated password-guessing attacks.
+
+**Remediation:**  
+Configure the account lockout duration to at least 15 minutes or use an administrator-controlled unlock policy.
+
+---
+
+## ❌ WN11-00-000031 — BitLocker Pre-Boot Authentication
+
+**Requirement:**  
+Windows 11 systems must use a BitLocker PIN for pre-boot authentication.
+
+**Result:** `FAILED`
+
+The required BitLocker startup PIN policy was not configured.
+
+**Security Impact:**  
+Pre-boot authentication adds protection against unauthorized access to encrypted data when the operating system is not running.
+
+**Remediation:**  
+Configure BitLocker startup authentication according to the applicable STIG requirement.
+
+---
+
+# 💻 Vulnerability Findings
+
+The vulnerability portion of the Tenable assessment identified three High-severity findings and one Low-severity finding.
+
+## 🟠 High — WinVerifyTrust Signature Validation
+
+**Plugin ID:** `166555`
+
+**Finding:**  
+WinVerifyTrust Signature Validation CVE-2013-3900 Mitigation (`EnableCertPaddingCheck`)
+
+Tenable identified that the recommended Windows signature-validation mitigation was not enabled.
+
+---
+
+## 🟠 High — Microsoft Outlook Security Update
 
 **Plugin ID:** `193266`
 
-Tenable identified a missing Microsoft Outlook for Windows security update.
+Tenable identified a missing security update affecting Microsoft Outlook for Windows.
 
 ---
 
-## High — Microsoft Teams Remote Code Execution
+## 🟠 High — Microsoft Teams Remote Code Execution
 
 **Plugin ID:** `250276`
 
@@ -241,7 +408,7 @@ The installed Microsoft Teams version was identified as affected by a remote cod
 
 ---
 
-## Low — Microsoft Teams Elevation of Privilege
+## 🔵 Low — Microsoft Teams Elevation of Privilege
 
 **Plugin ID:** `264898`
 
@@ -251,36 +418,73 @@ An installed Microsoft Teams version was identified as affected by an elevation-
 
 # 🔐 Credentialed Scan Validation
 
-The assessment successfully authenticated to the Windows host.
+The scan successfully authenticated to the Windows VM.
 
-This allowed Tenable to perform host-level enumeration including:
+Authenticated access allowed Tenable to retrieve security information including:
 
-- Local users and group memberships
+- Local user accounts
+- Administrator group membership
 - Windows password policy
-- Installed software
-- Windows services
-- Registry configuration
+- Installed applications
+- Windows Registry information
 - WMI information
+- Windows services
 - SMB configuration
-- Security patch information
+- Patch information
+- Operating system configuration
 
-Successful credentialed enumeration provided significantly more visibility into the Windows host than a basic unauthenticated network scan.
+This demonstrated why credentialed vulnerability scans provide substantially greater host visibility than basic unauthenticated network scans.
 
 ---
 
-# 🛠️ Remediation Recommendations
+# 🛠️ Remediation Priorities
 
-| Finding | Recommended Action |
-|---|---|
-| Windows Firewall disabled | Re-enable Windows Defender Firewall |
-| Guest account enabled | Disable the Guest account |
-| Excessive administrative privileges | Remove unnecessary users from Administrators |
-| Permissive Azure NSG | Restrict inbound traffic using least privilege |
-| Missing Windows/application updates | Apply current Microsoft security updates |
-| WinVerifyTrust mitigation | Apply the recommended registry mitigation |
-| DISA STIG failures | Harden the system according to applicable STIG controls |
+Based on the vulnerability and STIG assessments, remediation should prioritize the following:
 
-A follow-up credentialed scan should be performed after remediation to verify that identified weaknesses have been corrected.
+| Priority | Finding | Recommended Action |
+|---|---|---|
+| 🔴 High | Host firewall disabled | Enable and properly configure Windows Defender Firewall |
+| 🔴 High | Excessive privileges | Remove Guest and unnecessary accounts from Administrators |
+| 🔴 High | Missing security updates | Apply Outlook, Teams, and Windows security updates |
+| 🟠 High | Password controls | Enforce expiration, complexity, history, and lockout policies |
+| 🟠 High | Azure NSG exposure | Replace allow-all access with least-privilege rules |
+| 🟠 High | BitLocker controls | Configure required encryption and pre-boot authentication |
+| 🟡 Medium | Audit configuration | Enable required Windows security auditing |
+| 🟡 Medium | STIG configuration gaps | Apply applicable DISA Windows 11 hardening settings |
+
+---
+
+# 🔄 Vulnerability Management Workflow
+
+```text
+        Deploy Windows 11 VM
+                 │
+                 ▼
+   Introduce Lab Misconfigurations
+                 │
+                 ▼
+     Configure Tenable Scanner
+                 │
+                 ▼
+      Credentialed Assessment
+            ┌────┴────┐
+            ▼         ▼
+    Vulnerability   DISA STIG
+       Scan          Audit
+            │         │
+            └────┬────┘
+                 ▼
+          Analyze Findings
+                 │
+                 ▼
+        Prioritize Remediation
+                 │
+                 ▼
+          Harden the System
+                 │
+                 ▼
+             Re-scan
+```
 
 ---
 
@@ -288,24 +492,52 @@ A follow-up credentialed scan should be performed after remediation to verify th
 
 This project provided hands-on experience with:
 
+- Microsoft Azure security
 - Vulnerability management
 - Credentialed vulnerability scanning
-- DISA STIG compliance assessment
+- DISA STIG compliance auditing
 - Windows security hardening
-- Azure security configuration
-- Vulnerability analysis
-- Security remediation planning
+- Security baseline assessment
+- Patch and vulnerability analysis
+- Windows account and password policies
 - SMB and WMI enumeration
-- Interpreting Tenable vulnerability findings
+- Security remediation planning
+- Interpreting Tenable vulnerability and compliance results
+
+Most importantly, the project demonstrated the difference between **vulnerability management** and **configuration compliance**: vulnerability scanning identified vulnerable software and missing mitigations, while the STIG audit evaluated whether Windows security settings met a defined hardening baseline.
 
 ---
 
 # 🧹 Lab Cleanup
 
-After completing the assessment, the intentionally vulnerable Azure resources were removed to prevent continued exposure of the insecure test environment.
+After the assessment was completed, the intentionally vulnerable Azure resources were removed to prevent continued exposure of the test environment.
+
+---
+
+# 📁 Repository Structure
+
+```text
+tenable-windows11-stig-compliance-scan/
+│
+├── README.md
+│
+├── screenshots/
+│   ├── 01-azure-vm-overview.png
+│   ├── 02-firewall-disabled.png
+│   ├── 03-insecure-local-accounts.png
+│   ├── 04-nsg-allow-all.png
+│   ├── 05-connectivity-test.png
+│   ├── Tenable_STIG_Template_config.PNG
+│   ├── DISA_STIG_Win11_parameters.PNG
+│   ├── STIG_Scan_Completed.PNG
+│   └── STIG_Audit_Summary.PNG
+│
+└── reports/
+    └── Windows_11_DISA_STIG_Audit_Report.pdf
+```
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project was conducted solely in an authorized cybersecurity lab environment. The vulnerable configurations documented in this repository were intentionally created for educational and security-testing purposes.
+This project was conducted exclusively in an authorized cybersecurity lab environment. The vulnerable configurations shown in this repository were intentionally created for educational and security-testing purposes.
