@@ -547,3 +547,139 @@ tenable-windows11-stig-compliance-scan/
 ## ⚠️ Disclaimer
 
 This project was conducted exclusively in an authorized cybersecurity lab environment. The vulnerable configurations shown in this repository were intentionally created for educational and security-testing purposes.
+
+
+# 🔧 Remediation & Validation
+
+Following the initial vulnerability and DISA STIG assessments, selected findings were remediated to reduce the attack surface and improve the Windows 11 VM's compliance with the DISA security baseline.
+
+The remediation phase focused on findings that represented meaningful security risks and could be validated through a follow-up Tenable scan.
+
+## 🛠️ Security Hardening
+
+### 1. Windows Defender Firewall
+
+The initial assessment was performed with Windows Defender Firewall disabled across the Domain, Private, and Public profiles.
+
+**Remediation:** Windows Defender Firewall was re-enabled to restore host-based network protection.
+
+<details>
+<summary><b>📸 View Firewall Remediation</b></summary>
+
+<br>
+
+![Firewall Remediation](screenshots/10-firewall-remediation.png)
+
+**Figure 10 — Windows Defender Firewall enabled following remediation.**
+
+</details>
+
+---
+
+### 2. Guest Account & Administrative Privileges
+
+The initial configuration had the built-in Guest account enabled and included in the local Administrators group, creating unnecessary privileged access.
+
+**Remediation:**
+
+- Removed the Guest account from the local Administrators group
+- Disabled the built-in Guest account
+- Verified local Administrators group membership
+
+<details>
+<summary><b>📸 View Account Remediation</b></summary>
+
+<br>
+
+![Account Remediation](screenshots/11-account-remediation.png)
+
+**Figure 11 — Local account configuration after removing unnecessary administrative access.**
+
+</details>
+
+---
+
+### 3. Account Security Policy
+
+The DISA STIG assessment identified account-policy settings that did not meet the required security baseline.
+
+**Remediation:** Selected password and account lockout settings were modified to align with the applicable DISA Windows 11 STIG requirements.
+
+<details>
+<summary><b>📸 View Security Policy Remediation</b></summary>
+
+<br>
+
+![Security Policy](screenshots/12-security-policy-remediation.png)
+
+**Figure 12 — Windows account security policy after STIG hardening.**
+
+</details>
+
+---
+
+### 4. Vulnerability Remediation
+
+The initial Tenable vulnerability scan identified **3 High-severity** and **1 Low-severity** vulnerabilities.
+
+Remediation focused on the identified Microsoft application vulnerabilities and Windows security configuration.
+
+**Actions included:**
+
+- Applied applicable Microsoft security updates
+- Updated affected Microsoft applications
+- Applied the recommended WinVerifyTrust security mitigation
+- Verified the affected software and configuration after remediation
+
+---
+
+# 🔄 Post-Remediation Assessment
+
+After completing the hardening changes, the Windows 11 VM was scanned again using the same Tenable assessment methodology.
+
+Using the same assessment approach allowed the initial and post-remediation results to be compared and provided evidence that the security changes were effective.
+
+## 📊 Before vs. After
+
+| Security Metric | Initial Scan | Post-Remediation |
+|---|---:|---:|
+| Critical Vulnerabilities | **0** | `TBD` |
+| High Vulnerabilities | **3** | `TBD` |
+| Medium Vulnerabilities | **0** | `TBD` |
+| Low Vulnerabilities | **1** | `TBD` |
+| Failed STIG Controls | **144** | `TBD` |
+| Passed STIG Controls | **101** | `TBD` |
+
+<details>
+<summary><b>📸 View Post-Remediation Vulnerability Scan</b></summary>
+
+<br>
+
+![Post-Remediation Vulnerability Scan](screenshots/13-post-remediation-vulnerability-scan.png)
+
+**Figure 13 — Tenable vulnerability results following remediation.**
+
+</details>
+
+<details>
+<summary><b>📸 View Post-Remediation STIG Assessment</b></summary>
+
+<br>
+
+![Post-Remediation STIG Results](screenshots/14-post-remediation-stig-results.png)
+
+**Figure 14 — DISA Windows 11 STIG compliance results following security hardening.**
+
+</details>
+
+---
+
+## ✅ Remediation Validation
+
+The post-remediation assessment was used to determine whether the implemented security changes successfully resolved the targeted vulnerabilities and STIG compliance failures.
+
+Where findings remained, they were retained for additional analysis rather than being considered successfully remediated.
+
+This process demonstrated a complete vulnerability-management workflow:
+
+**Identify → Analyze → Prioritize → Remediate → Re-scan → Validate**
