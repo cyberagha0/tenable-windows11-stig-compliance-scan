@@ -549,6 +549,9 @@ tenable-windows11-stig-compliance-scan/
 This project was conducted exclusively in an authorized cybersecurity lab environment. The vulnerable configurations shown in this repository were intentionally created for educational and security-testing purposes.
 
 
+
+
+
 # 🔧 Remediation & Validation
 
 Following the initial vulnerability and DISA STIG assessments, selected findings were remediated to reduce the attack surface and improve the Windows 11 VM's compliance with the DISA security baseline.
