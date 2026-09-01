@@ -658,7 +658,7 @@ Using the same assessment approach allowed the initial and post-remediation resu
 
 <br>
 
-![Post-Remediation Vulnerability Scan](screenshots/13-post-remediation-vulnerability-scan.png)
+![Post-Remediation Vulnerability Scan](reports/Windows_11_DISA_STIG_Assessment_-_cyberagha0-second_vuln.pdf)
 
 **Figure 13 — Tenable vulnerability results following remediation.**
 
@@ -669,7 +669,7 @@ Using the same assessment approach allowed the initial and post-remediation resu
 
 <br>
 
-![Post-Remediation STIG Results](screenshots/14-post-remediation-stig-results.png)
+![Post-Remediation STIG Results](reports/Windows_11_DISA_STIG_Assessment_second_audits.pdf)
 
 **Figure 14 — DISA Windows 11 STIG compliance results following security hardening.**
 
