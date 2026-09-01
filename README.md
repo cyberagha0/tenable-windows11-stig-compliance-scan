@@ -646,12 +646,12 @@ Using the same assessment approach allowed the initial and post-remediation resu
 
 | Security Metric | Initial Scan | Post-Remediation |
 |---|---:|---:|
-| Critical Vulnerabilities | **0** | `TBD` |
-| High Vulnerabilities | **3** | `TBD` |
-| Medium Vulnerabilities | **0** | `TBD` |
-| Low Vulnerabilities | **1** | `TBD` |
-| Failed STIG Controls | **144** | `TBD` |
-| Passed STIG Controls | **101** | `TBD` |
+| Critical Vulnerabilities | 0 | 0 |
+| High Vulnerabilities | 3 | 1 |
+| Medium Vulnerabilities | 0 | 0 |
+| Low Vulnerabilities | 1 | 0 |
+| Failed STIG Controls | 144 | 140 |
+| Passed STIG Controls | 101 | 116 |
 
 <details>
 <summary><b>📸 View Post-Remediation Vulnerability Scan report</b></summary>
@@ -686,3 +686,30 @@ Where findings remained, they were retained for additional analysis rather than 
 This process demonstrated a complete vulnerability-management workflow:
 
 **Identify → Analyze → Prioritize → Remediate → Re-scan → Validate**
+
+
+# 🎓  Summary
+
+This project provided hands-on experience with the complete vulnerability management and security hardening lifecycle rather than simply running a vulnerability scanner and reviewing its output.
+
+I learned how to deploy and intentionally misconfigure a Windows 11 system in Microsoft Azure, configure network access for security testing, perform credentialed vulnerability scanning with Tenable Vulnerability Management, and evaluate the system against the DISA Microsoft Windows 11 STIG v2r8 security baseline. :contentReference[oaicite:0]{index=0}
+
+One of the most important lessons was understanding the difference between **vulnerability scanning and compliance auditing**. The vulnerability scan identified software vulnerabilities, missing security updates, and security mitigations, while the DISA STIG audit examined whether Windows security settings complied with an established security-hardening baseline. These are complementary processes and provide different views of the system's security posture. :contentReference[oaicite:1]{index=1}
+
+Credentialed scanning was another important part of the project. By successfully authenticating to the Windows VM through services such as SMB and WMI, Tenable was able to inspect information that would not normally be available during a basic external network scan, including local accounts, installed applications, Windows Registry settings, services, password policies, patch information, and operating system configuration. :contentReference[oaicite:2]{index=2}
+
+The initial assessment demonstrated how insecure configurations can significantly increase attack surface. The system contained **3 High-severity vulnerabilities, 1 Low-severity vulnerability, and 144 failed STIG controls**. The findings included an improperly configured host firewall, insecure account settings, insufficient password and lockout policies, missing application security updates, BitLocker configuration weaknesses, and other Windows security-hardening gaps. :contentReference[oaicite:3]{index=3} :contentReference[oaicite:4]{index=4}
+
+The remediation phase showed that vulnerability management does not end when vulnerabilities are discovered. Findings must be analyzed, prioritized, corrected, and then tested again. I hardened Windows Defender Firewall, removed unnecessary Guest account privileges, modified account security policies, updated vulnerable Microsoft applications, and addressed Windows security configurations identified during the assessment. :contentReference[oaicite:5]{index=5} :contentReference[oaicite:6]{index=6}
+
+The post-remediation scan demonstrated measurable improvement. High-severity vulnerabilities decreased from **3 to 1**, the Low-severity vulnerability was eliminated, failed STIG controls decreased from **144 to 140**, and passed STIG controls increased from **101 to 116**. This demonstrated why rescanning is necessary: making a configuration change does not automatically prove that a vulnerability has been successfully resolved. :contentReference[oaicite:7]{index=7}
+
+The remaining findings were also an important learning experience. Not every remediation attempt immediately produces a passing result. Remaining vulnerabilities or failed controls require additional investigation to determine whether the configuration was applied incorrectly, partially applied, requires another setting, or is affected by the environment. Rather than assuming remediation was successful, the follow-up assessment provided evidence of what had actually changed. :contentReference[oaicite:8]{index=8}
+
+Another major lesson was the importance of balancing **security and operational accessibility**. Enabling host-based firewall protections can interfere with credentialed vulnerability scanning unless the required scanner traffic is explicitly permitted. Security hardening therefore requires understanding dependencies and implementing least-privilege access instead of simply disabling security controls to make tools work.
+
+Overall, this project gave me practical experience connecting **cloud security, Windows hardening, vulnerability management, compliance auditing, remediation, and validation** into a single workflow. More importantly, it reinforced that vulnerability management is a continuous process:
+
+**Identify → Analyze → Prioritize → Remediate → Re-scan → Validate**
+
+The goal is not simply to achieve a lower vulnerability count. The goal is to understand why a finding exists, determine the security risk it represents, implement an appropriate mitigation, and use evidence from a follow-up assessment to verify that the security posture actually improved.
