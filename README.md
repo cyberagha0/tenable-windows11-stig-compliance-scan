@@ -654,7 +654,7 @@ Using the same assessment approach allowed the initial and post-remediation resu
 | Passed STIG Controls | **101** | `TBD` |
 
 <details>
-<summary><b>📸 View Post-Remediation Vulnerability Scan</b></summary>
+<summary><b>📸 View Post-Remediation Vulnerability Scan report</b></summary>
 
 <br>
 
@@ -665,7 +665,7 @@ Using the same assessment approach allowed the initial and post-remediation resu
 </details>
 
 <details>
-<summary><b>📸 View Post-Remediation STIG Assessment</b></summary>
+<summary><b>📸 View Post-Remediation STIG Assessment report</b></summary>
 
 <br>
 
